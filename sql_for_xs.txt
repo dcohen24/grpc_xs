@@ -1,0 +1,96 @@
+create table experiment  (
+	experiment_id	serial
+,	experiment_name	text
+,	is_enabled	boolean
+,	owner_id	int
+,	app_id		int
+,	create_time	timestamp
+,	update_time	timestamp
+)
+;
+create table owner  (
+	owner_id	serial
+,	team_name	text
+,	create_time	timestamp
+,	update_time	timestamp
+);
+
+create table app  (
+	app_id	serial
+,	app_name	text
+,	create_time	timestamp
+,	update_time	timestamp
+);
+
+create table variation  (
+	variation_id	serial
+,	experiment_id	int
+,	variation_name text
+,	weight		decimal
+,	is_control	boolean
+,	is_active	boolean
+,	is_winning	boolean
+,	is_holdout	boolean
+,	create_time	timestamp
+,	update_time	timestamp
+);
+
+create table variation_attribute  (
+	variation_attribute_id	serial
+	,variation_id int
+	,attribute_name	text
+	,attribute_value text
+);
+
+insert into owner(owner_id,team_name,create_time,update_time) values
+	(1,'Growth',current_timestamp,current_timestamp)
+	,(2,'Search',current_timestamp,current_timestamp)
+	,(3,'IAP',current_timestamp,current_timestamp)
+	,(4,'Connect',current_timestamp,current_timestamp)
+	;
+insert into app(app_id,app_name,create_time,update_time) values
+   (1,'WW-IOS',current_timestamp,current_timestamp)
+   ,(2,'WW-ANDROID',current_timestamp,current_timestamp)
+   ,(3,'WW-WEB',current_timestamp,current_timestamp)
+   ;
+
+insert into experiment (
+	experiment_id,	experiment_name	,	is_enabled	,	owner_id	,	app_id		,	create_time	,	update_time	) values 
+	(1,'Price Test-US',true,1,3 ,current_timestamp,current_timestamp)
+	,(2,'Color Test-US',true,1,3 ,current_timestamp,current_timestamp)
+	,(3,'Algo Test',true,2,1 ,current_timestamp,current_timestamp)
+	;
+
+insert into variation (variation_id,experiment_id,variation_name,weight,is_control,is_active,is_winning,is_holdout,create_time,update_time) values 
+	(1,1,'Control',1,true,true,false,false,current_timestamp,current_timestamp)
+	,(2,1,'Control Prime',1,true,true,false,false,current_timestamp,current_timestamp)
+	,(3,1,'Holdout',5,true,true,false,true,current_timestamp,current_timestamp)
+	,(4,1,'79/13',1,false,true,false,false,current_timestamp,current_timestamp)
+	,(5,1,'59/10',1,false,true,false,false,current_timestamp,current_timestamp)
+	
+	;
+insert into variation_attribute  (	variation_attribute_id		,variation_id 	,attribute_name		,attribute_value ) values
+ (1,1,'price-high','99.99')
+ ,(2,1,'price-low','19.99')
+ ,(3,2,'price-high','99.99')
+ ,(4,2,'price-low','19.99')
+, (5,3,'price-high','99.99')
+ ,(6,3,'price-low','19.99')
+ ,(7,4,'price-high','79.99')
+ ,(8,4,'price-low','12.99')
+ ,(9,5,'price-high','59.99')
+ ,(10,5,'price-low','9.99')
+ 
+ ;
+insert into variation (variation_id,experiment_id,variation_name,weight,is_control,is_active,is_winning,is_holdout,create_time,update_time) values 
+	(5,2,'Control',1,true,true,false,false,current_timestamp,current_timestamp)
+	,(6,2,'Control Prime',1,true,true,false,false,current_timestamp,current_timestamp)
+	,(7,2,'Holdout',1,true,true,false,true,current_timestamp,current_timestamp)
+	,(8,2,'Blue',3,false,true,false,false,current_timestamp,current_timestamp)
+ ;
+ insert into variation_attribute  (	variation_attribute_id		,variation_id 	,attribute_name		,attribute_value ) values
+ (11,5,'button-color','red')
+ ,(12,6,'button-color','red')
+ ,(13,7,'button-color','red')
+ ,(14,8,'button-color','blue')
+;
