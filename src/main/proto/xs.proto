@@ -1,9 +1,15 @@
 syntax= "proto3";
 option java_multiple_files = true;
+
 message VariationRequest {
+    message ForceVariation {
+        int32 experiment_id =1;
+        int32 variation_id =2;
+    }
     string user_id = 1;
     string visitor_id = 2;
     string visit_id  =3;
+    repeated ForceVariation forced_variations =4;
 
 }
 message Experiment {
@@ -14,6 +20,15 @@ message Experiment {
     bool is_active=5;
 
 }
+message NestedExperiment {
+    int32 experiment_id=1;
+    string name = 2;
+    string app_id = 3;
+    string team_id = 4 ;
+    bool is_active=5;
+    repeated Variation Variations=6;
+}
+
 message Variation {
     message VariationAttributes {
         string attribute_name=1;

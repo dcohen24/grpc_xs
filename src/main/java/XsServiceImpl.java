@@ -29,6 +29,7 @@ public class XsServiceImpl extends XsServiceGrpc.XsServiceImplBase {
         memoizedDBQuery = Suppliers.memoizeWithExpiration(dbSupplier::fetchQueryResults,5, TimeUnit.MINUTES);
         redis= redisTable.getInstance();
 
+
     }
     @Override
     public void getVariations(VariationRequest request, StreamObserver<Variation> responseObserver) {
